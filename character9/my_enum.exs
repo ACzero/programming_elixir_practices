@@ -29,10 +29,19 @@ defmodule MyEnum do
   end
 
   def take([], _), do: nil
-  def take([head | tail], idx) when idx > 0 do
+  def take([_ | tail], idx) when idx > 0 do
     take(tail, idx - 1)
   end
-  def take([head | tail], idx) when idx == 0 do
+  def take([head | _], idx) when idx == 0 do
     head
+  end
+
+  def flatten(list), do: _flatten(list, [])
+  defp _flatten([], _), do: []
+  defp _flatten(item, _) when not is_list(item) do
+    [item]
+  end
+  defp _flatten([head | tail], result) do
+    _flatten(head, result) ++ _flatten(tail, result)
   end
 end
