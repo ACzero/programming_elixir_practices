@@ -36,12 +36,11 @@ defmodule MyEnum do
     head
   end
 
-  def flatten(list), do: _flatten(list, [])
-  defp _flatten([], _), do: []
-  defp _flatten(item, _) when not is_list(item) do
+  def flatten([]), do: []
+  def flatten(item) when not is_list(item) do
     [item]
   end
-  defp _flatten([head | tail], result) do
-    _flatten(head, result) ++ _flatten(tail, result)
+  def flatten([head | tail]) do
+    flatten(head) ++ flatten(tail)
   end
 end
